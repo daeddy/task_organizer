@@ -1,6 +1,8 @@
 const NotFoundPage = () => {
   return (
-    <div className="bg-background-grey flex h-screen w-screen">{"404"}</div>
+    <div className="flex w-full scroll-mt-16 flex-col rounded-lg border p-4">
+      {"Not Found 404"}
+    </div>
   );
 };
 
