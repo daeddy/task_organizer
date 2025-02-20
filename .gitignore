@@ -1,14 +1,14 @@
-# front-end app
+# front end app
 # Logs
-front-end/logs
-front-end/*.log
-front-end/npm-debug.log*
-front-end/yarn-debug.log*
-front-end/yarn-error.log*
-front-end/pnpm-debug.log*
-front-end/lerna-debug.log*
+front_end/logs
+front_end/*.log
+front_end/npm-debug.log*
+front_end/yarn-debug.log*
+front_end/yarn-error.log*
+front_end/pnpm-debug.log*
+front_end/lerna-debug.log*
 
-front-end/node_modules
-front-end/dist
-front-end/dist-ssr
-front-end/*.local
+front_end/node_modules
+front_end/dist
+front_end/dist-ssr
+front_end/*.local
