@@ -1,0 +1,12 @@
+[build]
+  cmd = "go build -o ./tmp/app ./src/main.go"
+  bin = "./tmp/app"
+  dir = "."
+  include_ext = ["go"]
+  exclude_dir = ["vendor"]
+  run_after_build = "chmod +x main"
+  
+[log]
+  level = "debug"
+  clear_on_rebuild = false
+  keep_scroll = true
