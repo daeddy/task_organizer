@@ -2,8 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
-	"time"
 
 	"back_end/src/models"
 
@@ -21,7 +19,7 @@ func (h *TaskHandler) CreateTask(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	task.CreateDate = time.Now()
+
 	if err := h.DB.Create(&task).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -30,16 +28,31 @@ func (h *TaskHandler) CreateTask(c *gin.Context) {
 }
 
 func (h *TaskHandler) GetTasks(c *gin.Context) {
+	var pagination Pagination
+	if err := c.ShouldBindQuery(&pagination); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	var tasks []models.Task
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
-	offset := (page - 1) * limit
+	offset := pagination.GetOffset()
+	limit := pagination.GetLimit()
 
 	if err := h.DB.Offset(offset).Limit(limit).Find(&tasks).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, tasks)
+
+	// Calculate total rows and pages
+	var totalRows int64
+	h.DB.Model(&models.Task{}).Count(&totalRows)
+	totalPages := int((totalRows + int64(limit) - 1) / int64(limit))
+
+	pagination.TotalRows = totalRows
+	pagination.TotalPages = totalPages
+	pagination.Rows = tasks
+
+	c.JSON(http.StatusOK, pagination)
 }
 
 func (h *TaskHandler) GetTask(c *gin.Context) {

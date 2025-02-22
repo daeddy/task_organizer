@@ -11,6 +11,5 @@ type Task struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	DueDate     time.Time `json:"due_date"`
-	CreateDate  time.Time `json:"create_date"`
-	Status      string    `json:"status"`
+	Status      string    `json:"status" gorm:"-"`
 }
