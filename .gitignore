@@ -12,3 +12,6 @@ front_end/node_modules
 front_end/dist
 front_end/dist-ssr
 front_end/*.local
+
+# back end app
+back_end/tmp

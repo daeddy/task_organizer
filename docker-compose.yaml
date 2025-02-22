@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./back_end
+    volumes:
+      - ./back_end:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=taskdb
+
+  frontend:
+    build: ./front_end
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
