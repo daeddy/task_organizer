@@ -2,6 +2,7 @@ FROM golang:1.24-alpine
 
 WORKDIR /app
 
+RUN apk update && apk add --no-cache curl
 RUN go install github.com/air-verse/air@latest
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 
