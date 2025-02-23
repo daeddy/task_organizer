@@ -1,9 +1,9 @@
 [build]
-  cmd = "go build -o ./tmp/app ./src/main.go"
+  cmd = "go generate ./... && go build -o ./tmp/app ./src/main.go"
   bin = "./tmp/app"
   dir = "."
   include_ext = ["go"]
-  exclude_dir = ["vendor"]
+  exclude_dir = ["vendor","src/docs"]
   run_after_build = "chmod +x main"
   
 [log]
