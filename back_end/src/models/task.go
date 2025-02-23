@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type TaskStatus string
+type TaskStatus string // @name TaskStatus
 
 const (
 	StatusNotUrgent TaskStatus = "Not urgent"
@@ -20,7 +20,7 @@ type Task struct {
 	Description string     `json:"description"`
 	DueDate     time.Time  `json:"due_date"`
 	Status      TaskStatus `json:"status" gorm:"-"`
-}
+} // @name Task
 
 func (t *Task) CalculateStatus() {
 	now := time.Now()

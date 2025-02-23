@@ -11,12 +11,12 @@ import (
 
 type TaskHandler struct {
 	DB *gorm.DB
-}
+} // @name TaskHandler
 
 type TaskPagination struct {
 	Pagination
 	Rows []models.Task `json:"rows"`
-}
+} // @name TaskPagination
 
 // @Summary Create a new task
 // @Description Create a new task
