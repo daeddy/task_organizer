@@ -1,7 +1,8 @@
-import { Outlet } from "react-router";
-import { Button } from "@/components/ui/button";
 import { SunMoon } from "lucide-react";
+import { Outlet } from "react-router";
+
 import { useTheme } from "@/components/theme-provider";
+import { Button } from "@/components/ui/button";
 
 const PublicLayout = () => {
   const { toggleTheme } = useTheme();

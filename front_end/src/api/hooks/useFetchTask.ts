@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import taskApi from "@/api";
+
 import { Task } from "@/__generated__/data-contracts";
+import taskApi from "@/api";
 
 const useFetchTask = (id: number) => {
   const [task, setTask] = useState<Task>();

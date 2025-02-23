@@ -1,9 +1,14 @@
-import { useParams } from "react-router";
-import { formatDate } from "@/utils/dates";
 import { ChevronLeft } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
+import { useParams } from "react-router";
 
-import NotFound from "@/pages/NotFound";
-
+import { Task } from "@/__generated__/data-contracts";
+import { useFetchTask } from "@/api/hooks";
+import { TaskForm } from "@/components/forms";
+import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -20,15 +25,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button";
 import { TaskStatusTag } from "@/components/ui/taskStatusTag";
-import { Link } from "react-router";
-import { useFetchTask } from "@/api/hooks";
-import { Pencil } from "lucide-react";
-import { TaskForm } from "@/components/forms";
-import { useEffect, useState } from "react";
-import { Task } from "@/__generated__/data-contracts";
+import NotFound from "@/pages/NotFound";
+import { formatDate } from "@/utils/dates";
 
 const TaskView = () => {
   const { id } = useParams<"id">();

@@ -1,12 +1,11 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Plus } from "lucide-react";
+import { Link, useNavigate } from "react-router";
+
+import { Task } from "@/__generated__/data-contracts";
+import { useFetchTasks } from "@/api/hooks";
+import { TaskForm } from "@/components/forms";
+import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -23,16 +22,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { TaskStatusTag } from "@/components/ui/taskStatusTag";
-import { Task } from "@/__generated__/data-contracts";
 import NotFound from "@/pages/NotFound";
-import { buttonVariants } from "@/components/ui/button";
-import { TaskForm } from "@/components/forms";
-import { Link, useNavigate } from "react-router";
 import { formatDate } from "@/utils/dates";
-import { useFetchTasks } from "@/api/hooks";
-import { Plus } from "lucide-react";
 
 const TasksList: React.FC = () => {
   const { tasks, error, currentPage, totalPages, handlePageChange } =

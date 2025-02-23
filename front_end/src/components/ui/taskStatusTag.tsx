@@ -1,5 +1,5 @@
-import { Badge, BadgeProps } from "@/components/ui/badge";
 import { TaskStatus } from "@/__generated__/data-contracts";
+import { Badge, BadgeProps } from "@/components/ui/badge";
 
 const variants: Record<TaskStatus, BadgeProps["variant"]> = {
   [TaskStatus.StatusNotUrgent]: "info",

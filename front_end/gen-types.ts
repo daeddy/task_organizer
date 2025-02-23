@@ -1,6 +1,7 @@
 import path from "path";
-import { generateApi } from "swagger-typescript-api";
+
 import dotenv from "dotenv";
+import { generateApi } from "swagger-typescript-api";
 
 // Load environment variables from .env file
 dotenv.config();
