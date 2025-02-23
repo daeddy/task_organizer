@@ -23,8 +23,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Task } from "@/__generated__/data-contracts";
 import { Button } from "@/components/ui/button";
+import { TaskStatusTag } from "@/components/ui/taskStatusTag";
+import { Task } from "@/__generated__/data-contracts";
 import NotFound from "@/pages/NotFound";
 import { buttonVariants } from "@/components/ui/button";
 import { TaskForm } from "@/components/forms";
@@ -81,10 +82,11 @@ const TasksList: React.FC = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead>Status</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Description</TableHead>
                 <TableHead>Due date</TableHead>
+                <TableHead>Create date</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead className="px-4 text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -92,11 +94,16 @@ const TasksList: React.FC = () => {
               {tasks.map((task) => (
                 <TableRow key={task.id}>
                   <TableCell className="font-medium">{task.id}</TableCell>
-                  <TableCell>{task.status}</TableCell>
                   <TableCell>{task.name}</TableCell>
                   <TableCell>{task.description}</TableCell>
                   <TableCell>
+                    {task.created_at && formatDate(task.created_at)}
+                  </TableCell>
+                  <TableCell>
                     {task.due_date && formatDate(task.due_date)}
+                  </TableCell>
+                  <TableCell>
+                    {task.status && <TaskStatusTag status={task.status} />}
                   </TableCell>
                   <TableCell className="text-right">
                     <Link

@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
+import { TaskStatusTag } from "@/components/ui/taskStatusTag";
 import { Link } from "react-router";
 import { useFetchTask } from "@/api/hooks";
 import { Pencil } from "lucide-react";
@@ -51,6 +52,9 @@ const TaskView = () => {
   const handleCreateTaskError = (errorMessage: string) => {
     console.log(errorMessage);
   };
+  const handleCloseDialog = (open: boolean) => {
+    setDialogOpen(open);
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -58,7 +62,7 @@ const TaskView = () => {
         <Link to="/tasks" className={buttonVariants({ size: "icon" })}>
           <ChevronLeft />
         </Link>
-        <Dialog open={dialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={handleCloseDialog}>
           <DialogTrigger asChild>
             <Button variant="ghost" onClick={() => setDialogOpen(true)}>
               <Pencil />
@@ -86,7 +90,7 @@ const TaskView = () => {
           </CardHeader>
           <CardContent>
             <ul>
-              <li>Status: {currentTask.status}</li>
+              <li>Status: {currentTask.status && <TaskStatusTag status={currentTask.status} />}</li>
               <li>
                 Due Date:{" "}
                 {currentTask.due_date && formatDate(currentTask.due_date)}
