@@ -6,12 +6,15 @@ const useFetchTasks = () => {
   const [tasks, setTasks] = useState<Task[] | undefined>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await tasksApi.tasksList();
+        const response = await tasksApi.tasksList({ page: currentPage });
         setTasks(response.data.rows);
+        setTotalPages(response.data.total_pages || 1);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -24,9 +27,13 @@ const useFetchTasks = () => {
     };
 
     fetchTasks();
-  }, []);
+  }, [currentPage]);
 
-  return { tasks, loading, error };
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  return { tasks, loading, error, currentPage, totalPages, handlePageChange };
 };
 
 export default useFetchTasks;
