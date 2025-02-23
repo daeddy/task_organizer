@@ -1,7 +1,7 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router";
 import MainLayout from "./layouts/Main";
-import Notfound from "../pages/NotFound";
-import Tasks, { TasksList, TasksView } from "../pages/Tasks";
+import Notfound from "@/pages/NotFound";
+import Tasks, { TasksList, TasksView } from "@/pages/Tasks";
 
 const AppRouter = () => {
   return (

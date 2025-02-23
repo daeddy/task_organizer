@@ -1,76 +1,65 @@
-export type task_status = "Overdue" | "Due soon" | "Not urgent";
+import { Task, TaskStatus } from "@/__generated__/data-contracts";
 
-export type task = {
-  ID: number;
-  CreatedAt: string;
-  UpdatedAt: string;
-  DeletedAt: string | null;
-  name: string;
-  description: string;
-  due_date: string;
-  status: task_status;
-};
-
-const tasks: task[] = [
+const tasks: Task[] = [
   {
-    ID: 9,
-    CreatedAt: "2025-02-22T06:42:21.516058Z",
-    UpdatedAt: "2025-02-22T07:45:17.658123Z",
-    DeletedAt: null,
+    id: 9,
+    createdAt: "2025-02-22T06:42:21.516058Z",
+    updatedAt: "2025-02-22T07:45:17.658123Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-20T00:00:00Z",
-    status: "Overdue",
+    status: TaskStatus.StatusOverdue,
   },
   {
-    ID: 10,
-    CreatedAt: "2025-02-22T06:43:25.859525Z",
-    UpdatedAt: "2025-02-22T06:43:25.859525Z",
-    DeletedAt: null,
+    id: 10,
+    createdAt: "2025-02-22T06:43:25.859525Z",
+    updatedAt: "2025-02-22T06:43:25.859525Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-28T00:00:00Z",
-    status: "Due soon",
+    status: TaskStatus.StatusDueSoon,
   },
   {
-    ID: 11,
-    CreatedAt: "2025-02-22T06:43:26.640771Z",
-    UpdatedAt: "2025-02-22T06:43:26.640771Z",
-    DeletedAt: null,
+    id: 11,
+    createdAt: "2025-02-22T06:43:26.640771Z",
+    updatedAt: "2025-02-22T06:43:26.640771Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-28T00:00:00Z",
-    status: "Due soon",
+    status: TaskStatus.StatusDueSoon,
   },
   {
-    ID: 12,
-    CreatedAt: "2025-02-22T06:43:27.504389Z",
-    UpdatedAt: "2025-02-22T06:43:27.504389Z",
-    DeletedAt: null,
+    id: 12,
+    createdAt: "2025-02-22T06:43:27.504389Z",
+    updatedAt: "2025-02-22T06:43:27.504389Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-28T00:00:00Z",
-    status: "Due soon",
+    status: TaskStatus.StatusNotUrgent,
   },
   {
-    ID: 13,
-    CreatedAt: "2025-02-22T07:43:05.508847Z",
-    UpdatedAt: "2025-02-22T07:43:05.508847Z",
-    DeletedAt: null,
+    id: 13,
+    createdAt: "2025-02-22T07:43:05.508847Z",
+    updatedAt: "2025-02-22T07:43:05.508847Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-28T00:00:00Z",
-    status: "Due soon",
+    status: TaskStatus.StatusNotUrgent,
   },
   {
-    ID: 14,
-    CreatedAt: "2025-02-22T07:43:58.106156Z",
-    UpdatedAt: "2025-02-22T07:43:58.106156Z",
-    DeletedAt: null,
+    id: 14,
+    createdAt: "2025-02-22T07:43:58.106156Z",
+    updatedAt: "2025-02-22T07:43:58.106156Z",
+    deletedAt: undefined,
     name: "Sample Task",
     description: "This is a sample task",
     due_date: "2025-02-28T00:00:00Z",
-    status: "Due soon",
+    status: TaskStatus.StatusNotUrgent,
   },
 ];
 

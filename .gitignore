@@ -10,8 +10,10 @@ front_end/lerna-debug.log*
 
 front_end/node_modules
 front_end/dist
+front_end/src/__generated__
 front_end/dist-ssr
 front_end/*.local
+front_end/.env
 
 # back end app
 back_end/tmp

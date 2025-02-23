@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "react-router";
-import { formatDate } from "../../../utils/dates";
+import { formatDate } from "@/utils/dates";
 
 const TasksList = () => (
   <div>
@@ -31,14 +31,14 @@ const TasksList = () => (
       <TableBody>
         {tasks.map((task) => (
           <TableRow>
-            <TableCell className="font-medium">{task.ID}</TableCell>
+            <TableCell className="font-medium">{task.id}</TableCell>
             <TableCell>{task.status}</TableCell>
             <TableCell>{task.name}</TableCell>
             <TableCell>{task.description}</TableCell>
-            <TableCell>{formatDate(task.due_date)}</TableCell>
+            <TableCell>{task.due_date && formatDate(task.due_date)}</TableCell>
             <TableCell className="text-right">
               <Link
-                to={`${task.ID}`}
+                to={`${task.id}`}
                 className={buttonVariants({ variant: "secondary" })}
               >
                 View
