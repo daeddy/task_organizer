@@ -15,15 +15,19 @@ import taskApi from "@/api";
 interface TaskFormProps {
   task?: Task;
   onSuccess: (data: Task | undefined) => void;
-  onError: (error_message: string) => void;
+  onError: (errorMessage: string) => void;
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess, onError }) => {
+  // format date for input
+  const dueDate = task?.due_date
+    ? new Date(task.due_date).toISOString().split("T")[0]
+    : "";
   const form = useForm<BaseTask>({
     defaultValues: {
       name: task?.name || "",
       description: task?.description || "",
-      due_date: task?.due_date || "",
+      due_date: dueDate || "",
     },
   });
   const onSubmit: SubmitHandler<BaseTask> = async (data) => {

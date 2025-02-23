@@ -45,8 +45,8 @@ const TasksList: React.FC = () => {
   const handleCreateTask = (data: Task | undefined) => {
     navigate(`/tasks/${data?.id}`);
   };
-  const handleCreateTaskError = (error_message: string) => {
-    console.log(error_message);
+  const handleCreateTaskError = (errorMessage: string) => {
+    console.log(errorMessage);
   };
 
   return (
