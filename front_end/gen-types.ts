@@ -5,7 +5,8 @@ import dotenv from "dotenv";
 // Load environment variables from .env file
 dotenv.config();
 
-const swaggerUrl = process.env.SWAGGER_URL || 'http://localhost:8080/swagger/doc.json';
+const swaggerUrl =
+  process.env.SWAGGER_URL || "http://localhost:8080/swagger/doc.json";
 
 generateApi({
   name: "api.ts",
@@ -17,4 +18,4 @@ generateApi({
   generateClient: true,
   generateRouteTypes: false,
   generateResponses: true,
-})
+});
