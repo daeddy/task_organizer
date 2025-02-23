@@ -1,4 +1,3 @@
-import tasks from "../dummyData";
 import { useParams } from "react-router";
 import { formatDate } from "@/utils/dates";
 import { ChevronLeft } from "lucide-react";
@@ -15,10 +14,13 @@ import {
 } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "react-router";
+import { useFetchTask } from "@/api/hooks";
 
 const TaskView = () => {
   const { id } = useParams<"id">();
-  const task = tasks.find((task) => `${task.id}` === id);
+  const taskId = id ? parseInt(id, 10) : NaN;
+  const { task, loading, error } = useFetchTask(taskId);
+  console.log({ task, loading, error });
 
   if (!task) {
     return <NotFound />;
@@ -43,9 +45,9 @@ const TaskView = () => {
         <CardFooter className="text-xs">
           <ul>
             <li>
-              last updated: {task.updatedAt && formatDate(task.updatedAt)}
+              last updated: {task.updated_at && formatDate(task.updated_at)}
             </li>
-            <li>Created: {task.createdAt && formatDate(task.createdAt)}</li>
+            <li>Created: {task.created_at && formatDate(task.created_at)}</li>
           </ul>
         </CardFooter>
       </Card>

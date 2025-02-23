@@ -15,7 +15,9 @@ const (
 )
 
 type Task struct {
-	gorm.Model
+	ID          uint       `json:"id" gorm:"primaryKey"` // Add JSON tag for ID
+	CreatedAt   time.Time  `json:"created_at"`
+	UpdatedAt   time.Time  `json:"updated_at"`
 	Name        string     `json:"name"`
 	Description string     `json:"description"`
 	DueDate     time.Time  `json:"due_date"`

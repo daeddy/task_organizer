@@ -12,7 +12,24 @@ import (
 )
 
 func SetupRouter(db *gorm.DB) *gin.Engine {
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Recovery(), gin.Logger())
+
+	// CORS middleware
+	r.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+
 	taskHandler := &handlers.TaskHandler{DB: db}
 
 	docs.SwaggerInfo.BasePath = "/api/v1"
@@ -21,8 +38,8 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	{
 		g := v1.Group("/tasks")
 		{
-			g.POST("/", taskHandler.CreateTask)
-			g.GET("/", taskHandler.GetTasks)
+			g.POST("", taskHandler.CreateTask)
+			g.GET("", taskHandler.GetTasks)
 			g.GET("/:id", taskHandler.GetTask)
 			g.PUT("/:id", taskHandler.UpdateTask)
 			g.DELETE("/:id", taskHandler.DeleteTask)
