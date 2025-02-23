@@ -23,7 +23,7 @@ type TaskPagination struct {
 // @Tags tasks
 // @Accept json
 // @Produce json
-// @Param task body models.Task true "Task"
+// @Param task body models.BaseTask true "BaseTask"
 // @Success 201 {object} models.Task
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -107,7 +107,7 @@ func (h *TaskHandler) GetTask(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path int true "Task ID"
-// @Param task body models.Task true "Task"
+// @Param task body models.BaseTask true "BaseTask"
 // @Success 200 {object} models.Task
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H

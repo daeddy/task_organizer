@@ -3,7 +3,7 @@ import taskApi from "@/api";
 import { Task } from "@/__generated__/data-contracts";
 
 const useFetchTask = (id: number) => {
-  const [task, setTask] = useState<Task | undefined>();
+  const [task, setTask] = useState<Task>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

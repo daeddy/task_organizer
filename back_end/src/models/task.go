@@ -14,14 +14,18 @@ const (
 	StatusOverdue   TaskStatus = "Overdue"
 )
 
+type BaseTask struct {
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	DueDate     time.Time `json:"due_date"`
+} // @name BaseTask
+
 type Task struct {
-	ID          uint       `json:"id" gorm:"primaryKey"` // Add JSON tag for ID
-	CreatedAt   time.Time  `json:"created_at"`
-	UpdatedAt   time.Time  `json:"updated_at"`
-	Name        string     `json:"name"`
-	Description string     `json:"description"`
-	DueDate     time.Time  `json:"due_date"`
-	Status      TaskStatus `json:"status" gorm:"-"`
+	BaseTask
+	ID        uint       `json:"id" gorm:"primaryKey"` // Add JSON tag for ID
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	Status    TaskStatus `json:"status" gorm:"-"`
 } // @name Task
 
 func (t *Task) CalculateStatus() {

@@ -20,9 +20,8 @@ const TaskView = () => {
   const { id } = useParams<"id">();
   const taskId = id ? parseInt(id, 10) : NaN;
   const { task, loading, error } = useFetchTask(taskId);
-  console.log({ task, loading, error });
 
-  if (!task) {
+  if ((!task && !loading) || error) {
     return <NotFound />;
   }
 
@@ -31,26 +30,28 @@ const TaskView = () => {
       <Link to="/tasks" className={buttonVariants({ size: "icon" })}>
         <ChevronLeft />
       </Link>
-      <Card>
-        <CardHeader>
-          <CardTitle>{task.name}</CardTitle>
-          <CardDescription>{task.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ul>
-            <li>Status: {task.status}</li>
-            <li>Due Date: {task.due_date && formatDate(task.due_date)}</li>
-          </ul>
-        </CardContent>
-        <CardFooter className="text-xs">
-          <ul>
-            <li>
-              last updated: {task.updated_at && formatDate(task.updated_at)}
-            </li>
-            <li>Created: {task.created_at && formatDate(task.created_at)}</li>
-          </ul>
-        </CardFooter>
-      </Card>
+      {!loading && task && (
+        <Card>
+          <CardHeader>
+            <CardTitle>{task.name}</CardTitle>
+            <CardDescription>{task.description}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul>
+              <li>Status: {task.status}</li>
+              <li>Due Date: {task.due_date && formatDate(task.due_date)}</li>
+            </ul>
+          </CardContent>
+          <CardFooter className="text-xs">
+            <ul>
+              <li>
+                last updated: {task.updated_at && formatDate(task.updated_at)}
+              </li>
+              <li>Created: {task.created_at && formatDate(task.created_at)}</li>
+            </ul>
+          </CardFooter>
+        </Card>
+      )}
     </div>
   );
 };
