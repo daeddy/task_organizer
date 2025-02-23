@@ -54,7 +54,7 @@ const TaskView = () => {
   };
   const handleCloseDialog = (open: boolean) => {
     setDialogOpen(open);
-  }
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -90,7 +90,12 @@ const TaskView = () => {
           </CardHeader>
           <CardContent>
             <ul>
-              <li>Status: {currentTask.status && <TaskStatusTag status={currentTask.status} />}</li>
+              <li>
+                Status:{" "}
+                {currentTask.status && (
+                  <TaskStatusTag status={currentTask.status} />
+                )}
+              </li>
               <li>
                 Due Date:{" "}
                 {currentTask.due_date && formatDate(currentTask.due_date)}

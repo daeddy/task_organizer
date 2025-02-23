@@ -19,8 +19,8 @@ const badgeVariants = cva(
           "text-slate-950 [a&]:hover:bg-slate-100 [a&]:hover:text-slate-900 dark:text-slate-50 dark:[a&]:hover:bg-slate-800 dark:[a&]:hover:text-slate-50",
         warning:
           "border-transparent bg-yellow-500 text-white [a&]:hover:bg-yellow-500/90 focus-visible:ring-yellow-500/20 dark:focus-visible:ring-yellow-500/40 dark:bg-yellow-600 dark:[a&]:hover:bg-yellow-600/90 dark:focus-visible:ring-yellow-600/20 dark:dark:focus-visible:ring-yellow-600/40",
-        info:
-          "border-transparent bg-green-500 text-white [a&]:hover:bg-green-500/90 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/40 dark:bg-green-900 dark:[a&]:hover:bg-green-900/90 dark:focus-visible:ring-green-900/20 dark:dark:focus-visible:ring-green-900/40",},
+        info: "border-transparent bg-green-500 text-white [a&]:hover:bg-green-500/90 focus-visible:ring-green-500/20 dark:focus-visible:ring-green-500/40 dark:bg-green-900 dark:[a&]:hover:bg-green-900/90 dark:focus-visible:ring-green-900/20 dark:dark:focus-visible:ring-green-900/40",
+      },
     },
     defaultVariants: {
       variant: "default",
