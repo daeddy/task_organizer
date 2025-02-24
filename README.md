@@ -37,8 +37,8 @@
           <li><a href="#start-from-the-back">Start from the back</a></li>
           <li><a href="#finish-at-the-front">Finish at the front</a></li>
           <li><a href="#wrapping-up">Wrapping up</a></li>
-          <li><a href="#sorting-filtering">Sorting & filtering</a></li>
-          <li><a href="#not-enough-time">Not enough time</a></li>
+          <li><a href="#sorting-filtering">Sorting & filtering (Should have's)</a></li>
+          <li><a href="#not-enough-time">Not enough time (Further improvements)</a></li>
         </ul>
       </ul>
     </li>
@@ -248,7 +248,7 @@ For creating the API schema I used [gin-swagger][GinSwagger-url]. This library g
 Gorm took care of the main DB functionality (migrations, queries, etc..). Having worked with it before though, there may be times where we would need to override the functionality since many of Gorm's abstractions do not play well at scale.
 > Note: I implemented a delete function here though it was never part of the requirements.
 
-For the status, I used Gorm hooks (`AfterFind`, `AfterCreate`, and `AfterSave`), invoked after queries. Not entirely ideal since they add processing after each query (Ideally this would be done on the DB layer within the main transaction). But I chose this method since adding the status calculation logic on the queries would involve repeating code (I would need to explicitly write the query rather than using Gorm functions). This could be a point of improvement if performance at scale is not ideal.
+For the status, I decided it needs to be a virtual field produced by the API, since potential sorting by status would not be possible if we did the calculation in the front-end. I used Gorm hooks (`AfterCreate`, and `AfterSave`), invoked after saving type queries. For `Get /tasks:id` I just invoke the calculation after the fetch since doens't have a big performance impact. For `Get /tasks` where there could be potentially 10s of 1000s of tasks, then it will be necessary to do the calculation in the query so that it all happens within the same DB transaction.
 
 <a id="pagination-implementation"></a>
 For pagination, I based it on this simple [implementation I found](https://dev.to/rafaelgfirmino/pagination-using-gorm-scopes-3k5f) (minus the sorting).
@@ -316,12 +316,12 @@ With that the application can now be run full stack using one command!
 
 <a id="sorting-filtering"></a>
 
-### Sorting & filtering
+### Sorting & filtering (Should have's)
 As mentioned earlier on the pagination implementation part (see <a href="#pagination-implementation">pagination implementation</a>) if sorting and filtering were to be implemented I would use the same pattern.
 
 For sorting I would add a `sort` field to the pagination handler that uses a `sort` interface. Then on the `GetTasks` function in the `taskHandler` I would use `Gorm` functions to apply the sorting to the query (like `db.Order("...")`).
 
-Filtering would need its own interface that can be extended to use specific fields on a struct. The implementation would be very similar to pagination.
+Filtering (search) would need its own interface that can be extended to use specific fields on a struct. The implementation would be very similar to pagination.
 
 This kind of abstraction would make it very easy to re-use this logic in any other potential handlers.
 
@@ -329,11 +329,11 @@ This kind of abstraction would make it very easy to re-use this logic in any oth
 
 <a id="not-enough-time"></a>
 
-### Not enough time
-There were two big features that I simply didn't have enough time to implement:
-`Error handling` and `Testing`
+### Not enough time (Further improvements)
+There were some big features that I simply didn't have enough time to implement:
+`Error handling`, `Caching` and `Testing`
 
-As you can see by the time I had finished I had already spent ~6 hours of dev time on this project. I felt that the main goal was to show the core functionality from the requirements, as such I decided from the start that these two features would take a lower priority.
+As you can see by the time I had finished I had already spent ~6 hours of dev time on this project. I felt that the main goal was to show the core functionality from the requirements, as such I decided from the start that these features would take a lower priority.
 
 However, in the event that these would be needed I have a good idea of what it would look like:
 
@@ -343,9 +343,17 @@ In the front-end, I would use an error context that captures any raised errors. 
 
 For the back-end, errors would be logged and use an error middleware.
 
+#### Caching
+
+Caching can be done on both the front-end and back-end.
+
+For the back-end i would probably add a cache layer using redis. This is a very common solution that works well at scale (although with some memory costs). Alternatively I could also create a parallel read replica DB. With that I could offload read operations, and scale read capacity without affecting the performance of write operations on the primary database. I think I would need more discussions on this to see which solution is best for this platform.
+
+For the client its not a high priority based on these user stories, but if high volumes of read requests are expected, then adding some caching solution on the API client would probably be needed. It would most likely use local storage.
+
 #### Testing
 
-For the front-end I would use `jest` as well as snapshot tests for unit testing. Back-end unit testing would be done mostly natively using Go's built-in testing package.
+For the front-end I would use `jest` as well as snapshot tests for unit testing. Back-end unit testing would be done mostly natively using Go's built-in testing package. I would probably also want to implement some kind of load testing solution to address the "high volumes of tasks created" risk.
 
 Integration testing I would probably need some time to plan and see which tools would work best for this stack.
 
