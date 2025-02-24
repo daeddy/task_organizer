@@ -25,7 +25,7 @@ type Task struct {
 	ID        uint       `json:"id" gorm:"primaryKey"` // Add JSON tag for ID
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
-	Status    TaskStatus `json:"status" gorm:"-"`
+	Status    TaskStatus `json:"status"`
 } // @name Task
 
 func (t *Task) CalculateStatus() {
@@ -37,11 +37,6 @@ func (t *Task) CalculateStatus() {
 	} else {
 		t.Status = StatusNotUrgent
 	}
-}
-
-func (t *Task) AfterFind(tx *gorm.DB) (err error) {
-	t.CalculateStatus()
-	return
 }
 
 func (t *Task) AfterCreate(tx *gorm.DB) (err error) {

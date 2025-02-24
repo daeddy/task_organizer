@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"back_end/src/models"
 
@@ -64,7 +65,29 @@ func (h *TaskHandler) GetTasks(c *gin.Context) {
 	offset := pagination.GetOffset()
 	limit := pagination.GetLimit()
 
-	if err := h.DB.Offset(offset).Limit(limit).Find(&tasks).Error; err != nil {
+	// Raw SQL query to calculate status in the query itself using named parameters
+	query := `
+		SELECT *,
+		CASE
+			WHEN due_date < @now THEN @statusOverdue
+			WHEN due_date < @dueSoon THEN @statusDueSoon
+			ELSE @statusNotUrgent
+		END AS status
+		FROM tasks
+		LIMIT @limit OFFSET @offset
+	`
+	now := time.Now()
+	dueSoon := now.Add(7 * 24 * time.Hour)
+
+	if err := h.DB.Raw(query, map[string]interface{}{
+		"now":             now,
+		"dueSoon":         dueSoon,
+		"statusOverdue":   models.StatusOverdue,
+		"statusDueSoon":   models.StatusDueSoon,
+		"statusNotUrgent": models.StatusNotUrgent,
+		"limit":           limit,
+		"offset":          offset,
+	}).Scan(&tasks).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -98,6 +121,7 @@ func (h *TaskHandler) GetTask(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Task not found"})
 		return
 	}
+	task.CalculateStatus()
 	c.JSON(http.StatusOK, task)
 }
 
