@@ -80,7 +80,7 @@
 [Axios]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=ffffff
 [Axios-url]: https://axios-http.com/
 [shadcn]: https://img.shields.io/badge/shadcn-000000?style=for-the-badge&logo=shadcn/ui&logoColor=ffffff
-[shadcn-url]: https://axios-http.com/
+[shadcn-url]: https://ui.shadcn.com/
 
 <!-- Back end -->
 [Golang]: https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=ffffff
