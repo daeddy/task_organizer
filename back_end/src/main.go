@@ -1,6 +1,7 @@
 package main
 
 import (
+	"back_end/src/handlers"
 	"back_end/src/models"
 	"back_end/src/routes"
 	_ "back_end/tmp/docs" // This is required to import generated docs
@@ -24,6 +25,9 @@ import (
 //go:generate swag init --parseDependency --parseInternal --output ../tmp/docs
 func main() {
 	database := models.ConnectDatabase()
+
+	// Seed initial data
+	handlers.SeedData(database)
 
 	r := routes.SetupRouter(database)
 	r.Run(":8080")
