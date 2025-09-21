@@ -98,6 +98,7 @@
 
 ## About The Project
 
+
 Simple full-stack task management application. You can view, create and edit tasks.
 
 Tasks are composed of:
